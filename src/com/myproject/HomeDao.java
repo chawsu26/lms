@@ -20,22 +20,28 @@ public class HomeDao {
 	private EntityManager entityManager;
 	
 
-		public void update(String email,String name) {
+		public void update(String email,String name,String classname) {
 			StudentInfo student =  (StudentInfo)entityManager.createNativeQuery("select * from student_info where email='"+email+"'",StudentInfo.class).getSingleResult();
 			student.name=name;
+			student.classname = classname;
 			entityManager.merge(student);
 		}
 		public void delete(String email) {
 			StudentInfo student =  (StudentInfo)entityManager.createNativeQuery("select * from student_info where email='"+email+"'",StudentInfo.class).getSingleResult();
 			entityManager.remove(student);
 		}
+		public void deleteClass(String class_name) {
+			TimeTable classtimetable =  (TimeTable)entityManager.createNativeQuery("select * from time_table where class_name='"+class_name+"'",TimeTable.class).getSingleResult();
+			entityManager.remove(classtimetable);
+		}
 		
 		
-		public void saveStudentInfo(String email ,String name)
+		public void saveStudentInfo(String email ,String name,String classname)
 		{
 			StudentInfo info = new StudentInfo();
 			info.email = email;
 			info.name = name;
+			info.classname=classname;
 			entityManager.persist(info);
 		}
 		public List<StudentInfo> getAllStudentLists() {

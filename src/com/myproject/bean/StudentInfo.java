@@ -15,6 +15,9 @@ public class StudentInfo {
 	@Column(name="name")
 	public String name;
 	
+	@Column (name="classname")
+	public String classname;
+	
 
 	public String getEmail() {
 		return email;
@@ -29,7 +32,12 @@ public class StudentInfo {
 		this.name = name;
 	}
 	
-	
+	public String getClassname() {
+		return classname;
+	}
+	public void setClassname(String classname) {
+		this.classname = classname;
+	}
 }
 
 

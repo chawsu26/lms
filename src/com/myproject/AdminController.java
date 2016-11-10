@@ -1,12 +1,17 @@
 package com.myproject;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Properties;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,9 +46,25 @@ public class AdminController {
 		model.addAttribute("studentList",studentList);
         return "start";
 	}
+	@RequestMapping(value="images")
+	public String image(HttpServletRequest request,HttpServletResponse response){
+		response.setContentType("image/jpeg");
+		String fileName = request.getParameter("fileName");
+		String pathToWeb = getImageFolder();
+		File f = new File(pathToWeb + fileName);
+		try{
+			BufferedImage bi = ImageIO.read(f);
+			OutputStream out = response.getOutputStream();
+			ImageIO.write(bi, "jpg", out);
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
 	@RequestMapping(value="downloadTimeTable")
 	public String timeTablecls(Model model){
-		String path = servletContext.getRealPath("/images/");
+		String path = getImageFolder();
 		System.out.println(path);
 		System.out.println("Application started");
 		List<TimeTable> classList = homeDao.getAllClassLists();
@@ -56,6 +77,10 @@ public class AdminController {
 	public String createStudent(Model model){
 		return "createStudent";
 		}
+/*@RequestMapping(value="tabletest")
+	public String testTable(Model model){
+		return "bootstraptabletest";
+		}*/
 	
 	@RequestMapping(value="createButton")	
 	public String createButton(Model model , HttpServletRequest request){
@@ -63,7 +88,9 @@ public class AdminController {
 		model.addAttribute("email",email);
 		String name = request.getParameter("name");
 		model.addAttribute("name",name);
-		homeDao.saveStudentInfo(email ,name);
+		String classname = request.getParameter("classname");
+		model.addAttribute("classname",classname);
+		homeDao.saveStudentInfo(email ,name ,classname);
 		return "index4";
 		}
 	
@@ -71,9 +98,11 @@ public class AdminController {
 	public String updateEmail(Model model,HttpServletRequest request){
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
+		String classname = request.getParameter("classname");
 		System.out.println("Application started");
 		model.addAttribute("email",email);
 		model.addAttribute("name",name);
+		model.addAttribute("classname",classname);
 		return "updateEmail";
 	}
 	
@@ -82,7 +111,8 @@ public class AdminController {
 	public String update(HttpServletRequest request,Model model){
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
-		homeDao.update(email,name);
+		String classname = request.getParameter("classname");
+		homeDao.update(email,name,classname);
 		return start(model);
 	}
 	@RequestMapping(value="delete")
@@ -91,16 +121,22 @@ public class AdminController {
 		homeDao.delete(email);
 		return start(model);
 	}
+	@RequestMapping(value="classdelete")
+	public String deleteClass(HttpServletRequest request,Model model){
+		String class_name = request.getParameter("class_name");
+		homeDao.deleteClass(class_name);
+		return timeTablecls(model);
+	}
 
 	@RequestMapping(value="showUpload")
 	public String showUpload(){
 		return "uploadTest";
 	}
 	@RequestMapping(value = "uploadFile", method = RequestMethod.POST)
-	public String uploadFileHandler(@RequestParam("file") MultipartFile file,Model model, HttpServletRequest request) {
+	public String uploadFileHandler1(@RequestParam("file") MultipartFile file,Model model, HttpServletRequest request) {
 		System.out.println("Already uploaded!");
 		String orgFileName = file.getOriginalFilename();
-		String folder = servletContext.getRealPath("/images/");
+		String folder = getImageFolder();
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
@@ -114,7 +150,7 @@ public class AdminController {
 				String class_name = request.getParameter("class_name");
 				String file_name = request.getParameter("file_name");
 				homeDao.saveTimeTable(class_name, orgFileName);
-				return start(model);
+				return timeTablecls(model);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -124,4 +160,20 @@ public class AdminController {
 		return null;
 	}
 	
+	private String getImageFolder(){
+		String imageFolder = "";
+		try{
+			//Changed by Zaw Htut START
+			InputStream is =  this.getClass().getResourceAsStream("settings.properties");
+			//Changed by Zaw Htut END
+			Properties prop = new Properties();
+			prop.load(is);
+			imageFolder = (String)prop.get("image_folder");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return imageFolder;
+	}
+	
+		
 }

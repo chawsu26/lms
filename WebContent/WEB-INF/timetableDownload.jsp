@@ -4,27 +4,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link href="/LMS/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/LMS/css/bread-crumbs.css" />
-<script src="/LMS/js/jquery-3.1.1.js"></script>
-<script src="/LMS/js/bootstrap.js"></script>
-<body>
+<% String path = request.getContextPath(); %>
+<link href="<%=path %>/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=path %>/css/bread-crumbs.css" />
+<script src="<%=path %>/js/jquery-3.1.1.js"></script>
+<link rel="stylesheet" href="<%=path %>/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="<%=path %>/js/jquery.dataTables.min.js"></script>
+<script src="<%=path %>/js/bootstrap.js"></script>
+<body style="margin:20px auto">  
 <div class="container">
-<h2>Students</h2>
-<table class="table table-striped" border="1" style="padding-top:100px">
-		  <tr>
-	         <td>Class</td>
-	         <td>TimeTable</td>
+<div class="row header" style="text-align:center;color:green">
+<h3>TimeTableLists</h3>
+</div>
+<table id="myTable" class="table table-striped" >  
+        <thead>  
+           <tr>
+	         <td><strong>Class</strong></td>
+	         <td><Strong>TimeTable</Strong></td>
+	         <td></td>
 	         <td></td>
 	      </tr>
-	<c:forEach var="std" items="${classList}">
-	      <tr>
-	   		<td>${std.class_name}</td>
-	   		<td>${std.file_name}</td>
-	   		<td><a class="btn btn-success" href="/LMS/images/${std.file_name}" >View</a></td>
-		  </tr>
-	</c:forEach>
-</table>
-</div>
-</body>
+        </thead> 
+        <tbody>  
+          <c:forEach var="std" items="${classList}">
+	     	 <tr>
+	   			<td>${std.class_name}</td>
+	   			<td>${std.file_name}</td>
+	   			<td><a class="btn btn-success" href="<%=path %>/admin/images?fileName=${std.file_name}" >View</a></td>
+	   			<td><a class="btn btn-danger" href="<%=path %>/admin/classdelete?class_name=${std.class_name}" >Delete</a></td>
+		  	</tr>
+		  </c:forEach>
+        </tbody>  
+      </table>
+        <td><a class="btn btn-primary" href="<%=path %>/" style="float:right">Back</a></td>
+	  </div>
+</body>  
+<script>
+$(document).ready(function(){
+    $('#myTable').dataTable();
+});
+</script>
 </html>

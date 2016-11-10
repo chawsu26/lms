@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<link href="/LMS/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/LMS/css/bread-crumbs.css" />
+<% String path = request.getContextPath(); %>
+<link href="<%=path %>/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=path %>/css/bread-crumbs.css" />
 <title></title>
 <script src="jquery-3.1.1.js"></script>
 </head>
