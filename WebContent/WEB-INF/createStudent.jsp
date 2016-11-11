@@ -12,11 +12,11 @@
 
 <body>	
 	<br>&nbsp;</br>
-	<div class="container" style="padding-top:10px">
+	<div class="container" style="padding-top:15px">
 	<div class="panel panel-default" >
-		<div class="panel-heading"><strong>Create New Student</strong></div>
+		<div class="panel-heading"><strong>Registration Form</strong></div>
 		<div class="panel-body">	
-			<div class="col-md-8">
+			<div class="col-md-6">
 		        <form action="<%=path %>/admin/createButton">
 				         <div class="form-group">
 							<label for="class">Class:</label>
@@ -32,10 +32,14 @@
 					<label for="email">Email:</label> <input type="text" name="email" id="email" class="form-control"/>
 				  </div>
 				  <div class="form-group">
-				    <label for="name">Name:</label><input type="text" name="name" id="name"  class="form-control"/>
+				    <label for="name">UserName:</label><input type="text" name="name" id="name"  class="form-control"/>
 				  </div>
 				<br>
-				<input type="submit" class="btn btn-primary" value="Create" style="float:right" />
+				<div class="form-group">
+				    <label for="password">Password:</label><input type="password" name="password" id="password"  class="form-control"/>
+				  </div>
+				<br>
+				<input type="submit" class="btn btn-primary" value="Register" style="float:right" />
 			   </form>
 		    </div><!-- col-md-8 END -->
 		 </div><!-- Panel End  -->

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <script src="jquery.js"></script>
-<% response.sendRedirect("/LMS/admin/student"); %>
+<% response.sendRedirect("/LMS/home/showLogin"); %>
 <script>
 var racks;
 $(document).ready(function(){

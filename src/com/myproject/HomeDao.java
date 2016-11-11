@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,20 +37,36 @@ public class HomeDao {
 		}
 		
 		
-		public void saveStudentInfo(String email ,String name,String classname)
+		public void saveStudentInfo(String email ,String name,String classname,String password)
 		{
 			StudentInfo info = new StudentInfo();
 			info.email = email;
 			info.name = name;
 			info.classname=classname;
+			info.password = password;
 			entityManager.persist(info);
 		}
 		public List<StudentInfo> getAllStudentLists() {
 			return entityManager.createNativeQuery("select * from student_info",StudentInfo.class).getResultList();
 		}
+		
 		public TimeTable getTimeTable(String class_name , String file_name) {
 			return (TimeTable)entityManager.createNativeQuery("select * from time_table where class_name='"+class_name+"'",TimeTable.class).getSingleResult();
 		}
+		
+		public StudentInfo getStudent(String email,String password) {
+			StudentInfo studentInfo = null;
+			try{
+				 studentInfo = (StudentInfo)entityManager.createNativeQuery("select * from student_info where email='"+email+"' AND password='"+password+"'",StudentInfo.class).getSingleResult();
+				
+			   }catch(EmptyResultDataAccessException e){
+			   
+		      }
+				return studentInfo;
+					
+		}
+		
+		
 		public void saveTimeTable(String class_name ,String file_name)
 		{
 			TimeTable timetable = new TimeTable();

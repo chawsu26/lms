@@ -31,12 +31,10 @@
 	   			<td>${std.class_name}</td>
 	   			<td>${std.file_name}</td>
 	   			<td><a class="btn btn-success" href="<%=path %>/admin/images?fileName=${std.file_name}" >View</a></td>
-	   			<td><a class="btn btn-danger" href="<%=path %>/admin/classdelete?class_name=${std.class_name}" >Delete</a></td>
 		  	</tr>
 		  </c:forEach>
         </tbody>  
       </table>
-        <td><a class="btn btn-primary" href="<%=path %>/admin/student" style="float:right">Back</a></td>
 	  </div>
 </body>  
 <script>

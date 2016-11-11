@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+   <a href="/LMS/admin/images?fileName=${className}.jpg"">View TimeTable</a>
 </body>
 </html>

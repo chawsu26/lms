@@ -18,7 +18,24 @@ public class StudentInfo {
 	@Column (name="classname")
 	public String classname;
 	
+	@Column (name="password")
+	public String password;
 
+	@Column (name="type")
+	public String type;
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getEmail() {
 		return email;
 	}

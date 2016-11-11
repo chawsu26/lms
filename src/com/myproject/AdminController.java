@@ -90,7 +90,9 @@ public class AdminController {
 		model.addAttribute("name",name);
 		String classname = request.getParameter("classname");
 		model.addAttribute("classname",classname);
-		homeDao.saveStudentInfo(email ,name ,classname);
+		String password = request.getParameter("password");
+		model.addAttribute("password",password);
+		homeDao.saveStudentInfo(email ,name ,classname,password);
 		return "index4";
 		}
 	
