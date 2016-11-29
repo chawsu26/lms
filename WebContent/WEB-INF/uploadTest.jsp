@@ -9,29 +9,40 @@
 
 
 <body>	
+<div class='navbar navbar-default navbar-static-top'>
+     <div class='container'>
+     	<ul class='nav navbar-nav navbar-right subtitle'>
+     		<li><a href="<%=path %>/admin/student"><span class="glyphicon glyphicon-home"></span></a></li>
+     		<li><a href="<%=path %>/home/showLogin">Sign Out</a></li>
+     	</ul>
+     </div>
+</div>
 	<br>&nbsp;</br>
-	<div class="container" style="padding-top:10px">
-	<div class="panel panel-default" class="col-md-8">
-		<div class="panel-heading"><strong>Upload Timetable</strong></div>
-		<div class="panel-body">
-		<form method="POST" action="/LMS/admin/uploadFile" enctype="multipart/form-data">	
-			<div class="col-md-6">
-		        <div class="form-group">
-				<label for="class">Class:</label>
-				<select name="class_name" id="class" class="form-control">
-					<option>Section-A</option>
-					<option>Section-B</option>
-					<option>Section-C</option>
-					<option>Section-D</option>
-					<option>Section-E</option>
-				</select>
-		    </div>
-		      <div>Time Table:<input type="file" name="file"></div><br>
-		      <input type="submit" value="Upload"> 
-		    </div><!-- col-md-6 END -->
-		   </form>
-		 </div><!-- Panel End  -->
-	</div><!-- Panel END -->
+	<div class="container" style="padding-top:100px">
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-heading"><strong>Upload Timetable</strong></div>
+				<div class="panel-body">
+				<form method="POST" action="/LMS/admin/uploadFile" enctype="multipart/form-data">	
+					<div class="col-md-4">
+				        <div class="form-group">
+						<label for="class">Class:</label>
+						<select name="class_name" id="class" class="form-control">
+							<option>Section-A</option>
+							<option>Section-B</option>
+							<option>Section-C</option>
+							<option>Section-D</option>
+							<option>Section-E</option>
+						</select>
+				    </div>
+				      <div>Time Table:<input type="file" name="file"></div><br>
+				      <a href="/LMS/admin/downloadTimeTable" class="btn btn-default">Back</a>
+				      <input type="submit" value="Upload" class="btn btn-default"> 
+				    </div><!-- col-md-6 END -->
+				   </form>
+				 </div><!-- Panel End  -->
+			</div><!-- Panel END -->
+		</div>
     </div>
 </body>
 </html>

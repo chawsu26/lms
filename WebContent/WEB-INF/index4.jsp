@@ -10,6 +10,13 @@
 <script src="js/bootstrap.js"></script>
 <script src="jquery-3.1.1.js"></script>
 <body>
+<div class='navbar navbar-default navbar-static-top'>
+     <div class='container'>
+     	<ul class='nav navbar-nav navbar-right subtitle'>
+     		<li><a href="<%=path %>/home/showLogin">Sign Out</a></li>
+     	</ul>
+     </div>
+</div>
 <br>&nbsp;</br>
 	<div class="container" style="padding-top:10px">
 	<div class="panel panel-default" >
@@ -17,8 +24,12 @@
 		<div class="panel-body">
 <center>
 <p>EMAIL : ${email}</p></br>
-<p>NAME : ${name}</p></br>
+<p>USERNAME : ${name}</p></br>
+<p>FATHERNAME : ${fathername}</p></br>
+<p>DATE OF BIRTH : ${dob}</p></br>
+<p>ADDRESS : ${address}</p></br>
 <p>CLASS: ${classname}</p></br>
+<p>TYPE : ${type}</p></br>
 <a class="btn btn-primary" href="<%=path %>/admin/student">Confirm</a>
 </center>
  </div><!-- Panel End  -->

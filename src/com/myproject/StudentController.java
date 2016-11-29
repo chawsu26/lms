@@ -1,13 +1,10 @@
 package com.myproject;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Properties;
 
@@ -16,19 +13,19 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.myproject.bean.StudentInfo;
+import com.myproject.bean.ExamResult;
+import com.myproject.bean.SectionMaterial;
 import com.myproject.bean.TimeTable;
 
 @Controller
@@ -49,6 +46,10 @@ public class StudentController {
 	public String timetableView(Model model,HttpServletRequest request){
 		String className = request.getParameter("className");
 		model.addAttribute("className",className);
+		String email = request.getParameter("email");
+		model.addAttribute("email", email);
+		String Name = request.getParameter("Name");
+		model.addAttribute("Name", Name);
         return "timetableview";
 	}
 	@RequestMapping(value="images")
@@ -67,6 +68,30 @@ public class StudentController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value="downloadFile")
+	public void downloadFile(HttpServletRequest request,HttpServletResponse response){
+		try{
+			String fileName = request.getParameter("fileName");
+			String pathToWeb = getImageFolder();
+			response.setHeader("Content-disposition","attachment; filename="+fileName);
+
+			OutputStream out = response.getOutputStream();
+
+			FileInputStream in = new FileInputStream(pathToWeb+"/"+fileName);
+			byte[] buffer = new byte[4096];
+			int length;
+			while ((length = in.read(buffer)) > 0){
+			    out.write(buffer, 0, length);
+			}
+			in.close();
+			out.flush();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	
+	
 	@RequestMapping(value="timetableview")
 	public String timeTablecls(Model model){
 		String path = getImageFolder();
@@ -93,4 +118,39 @@ public class StudentController {
 	}
 	
 		
+	@RequestMapping(value="studentMaterial")
+	public String sectionmaterials(HttpServletRequest request , Model model){
+		String classname = request.getParameter("className");
+		String filename  = request.getParameter("filename");
+		String email=request.getParameter("email");
+		String Name = request.getParameter("Name");
+		model.addAttribute("Name", Name);
+		List<SectionMaterial> materiallist = homeDao.getMaterialLists(classname);
+		model.addAttribute("materiallist",materiallist);
+		model.addAttribute("className",classname);
+		model.addAttribute("email",email);
+		return "studentmaterial";
+	}
+	
+	@RequestMapping(value="examresultview")
+	public String ExamResultView(HttpServletRequest request , Model model){
+		String classname = request.getParameter("className");
+		model.addAttribute("className",classname);
+		String email = request.getParameter("email");
+		model.addAttribute("email", email);
+		String Name = request.getParameter("Name");
+		model.addAttribute("Name", Name);
+		List<ExamResult> results = homeDao.getExamResult(email);
+		model.addAttribute("examresults", results);
+		for(ExamResult res:results){
+			System.out.print("Email:"+res.getEmail());
+			System.out.print(res.subject.subjectName);
+			System.out.println("Mark:"+res.getMark());
+			}
+			return "viewexamresult";
+		}
+	
+	
+	
+
 }

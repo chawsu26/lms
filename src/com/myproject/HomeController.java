@@ -46,9 +46,11 @@ public class HomeController {
 					if(studentInfo.getType().equals("admin")){
 						response.sendRedirect("/LMS/admin/student/");
 					}else{
-						response.sendRedirect("/LMS/student/viewtimetable?className="+studentInfo.getClassname());
+						response.sendRedirect("/LMS/student/viewtimetable?className="+studentInfo.getClassname()+"&email="+studentInfo.getEmail()+"&Name="+studentInfo.getName());
 					}
 					return;
+				}else{
+					request.getSession().setAttribute("errorMsg","The User Name or Password is Wrong");
 				}
 		
 		response.sendRedirect("/LMS/home/showLogin");

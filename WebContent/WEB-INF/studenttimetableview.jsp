@@ -12,6 +12,14 @@
 <script type="text/javascript" src="<%=path %>/js/jquery.dataTables.min.js"></script>
 <script src="<%=path %>/js/bootstrap.js"></script>
 <body style="margin:20px auto">  
+<div class='navbar navbar-default navbar-static-top'>
+     <div class='container'>
+     	<ul class='nav navbar-nav navbar-right subtitle'>
+     		<li><a href="<%=path %>/student/viewtimetable?className=${className}&email=${email }&Name=${Name}"><span class="glyphicon glyphicon-home"></span></a></li>
+     		<li><a href="<%=path %>/home/showLogin">Sign Out</a></li>
+     	</ul>
+     </div>
+</div>
 <div class="container">
 <div class="row header" style="text-align:center;color:green">
 <h3>TimeTableLists</h3>

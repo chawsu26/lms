@@ -15,6 +15,15 @@ public class StudentInfo {
 	@Column(name="name")
 	public String name;
 	
+	@Column (name="fathername")
+	public String fathername;
+	
+	@Column (name="dob")
+	public String dob;
+	
+	@Column (name="address")
+	public String address;
+	
 	@Column (name="classname")
 	public String classname;
 	
@@ -23,7 +32,28 @@ public class StudentInfo {
 
 	@Column (name="type")
 	public String type;
+
+	public String confirmpassword;
+
 	
+	public String getFathername() {
+		return fathername;
+	}
+	public void setFathername(String fathername) {
+		this.fathername = fathername;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getType() {
 		return type;
 	}
