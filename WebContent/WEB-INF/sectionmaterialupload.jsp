@@ -31,7 +31,7 @@
 				<div class="col-md-6">
 					<form method="POST" action="<%=path%>/admin/uploadSectionMaterial" enctype="multipart/form-data">
 						<div class="form-group">
-		  					<label for="class">Class</label>
+		  					<label for="class"><spring:message code="admin.title.class" text="default text" /></label>
 							<select name="classname" id="class" class="form-control">
 								<option>Section-A</option>
 								<option>Section-B</option>
@@ -41,7 +41,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="fileName">Section Material:</label><input type="file" name="filename"/>
+							<label for="fileName"><spring:message code="admin.title.sectionmaterial" text="default text" />:</label><input type="file" name="filename"/>
 						</div>
 						<div class="form-group">
 							<input type="submit" class="btn btn-default" value=<spring:message code="admin.title.upload" text="default text" /> class="btn btn-default"/>

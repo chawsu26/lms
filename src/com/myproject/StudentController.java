@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -31,6 +32,7 @@ import com.myproject.bean.TimeTable;
 @Controller
 @RequestMapping(value="/student")
 public class StudentController {
+	final static Logger logger = Logger.getLogger(AdminController.class);
 	@Autowired
 	ServletContext servletContext;
 	@Autowired

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,17 +13,17 @@
 <script type="text/javascript" src="<%=path %>/js/jquery.dataTables.min.js"></script>
 <script src="<%=path %>/js/bootstrap.js"></script>
 </head>
-<body>
+<body style="font-family:Zawgyi-One">
 <div class='navbar navbar-default navbar-static-top'>
      <div class='container'>
      	<ul class='nav navbar-nav navbar-right subtitle'>
      		<li><a href="<%=path %>/student/viewtimetable?className=${className}&email=${email }&Name=${Name}"><span class="glyphicon glyphicon-home"></span></a></li>
-     		<li><a href="<%=path %>/home/showLogin">Sign Out</a></li>
+     		<li><a href="<%=path %>/home/showLogin"><spring:message code="admin.title.signout" text="default text" /></a></li>
      	</ul>
      </div>
 </div>
 
-<div ><h1><center>Hello ${Name }</center></h1></div>
+<div ><h1><center><spring:message code="admin.title.hello" text="default text" /> ${Name }</center></h1></div>
 <div id="slider">
 			<div id="carousel-slider" class="carousel slide" data-ride="carousel">
 					<!-- indicators -->
@@ -62,25 +63,25 @@
 <div class='col-md-7' style="padding-top:150px">
 	<div class='col-md-4'>
 		<div class="panel panel-default">
-			<div class="panel-heading">view</div>
+			<div class="panel-heading"></div>
 			<div class="panel-body">	
-	   			<a href="/LMS/admin/images?fileName=${className}.jpg">View TimeTable</a></br>
+	   			<a href="/LMS/admin/images?fileName=${className}.jpg"><spring:message code="admin.title.viewtimetable" text="default text" /></a></br>
 	   		</div>
 	   	</div>
 	 </div>
 	 <div class='col-md-4'>
 		<div class="panel panel-default">
-			<div class="panel-heading">view</div>
+			<div class="panel-heading"></div>
 	   		<div class="panel-body">
-	   		<a href="/LMS/student/studentMaterial?className=${className}&email=${email }&Name=${Name}">View Section Materials</a>
+	   		<a href="/LMS/student/studentMaterial?className=${className}&email=${email }&Name=${Name}"><spring:message code="admin.title.viewsectionmaterial" text="default text" /></a>
 	   		</div>
 	   	</div>
    	</div>
    	<div class='col-md-4'>
 		<div class="panel panel-default">
-			<div class="panel-heading">view</div>
+			<div class="panel-heading"></div>
 	   		<div class="panel-body">
-	   		<a href="/LMS/student/examresultview?className=${className}&email=${email }&Name=${Name}">View Exam Results</a>
+	   		<a href="/LMS/student/examresultview?className=${className}&email=${email }&Name=${Name}"><spring:message code="admin.title.viewexamresult" text="default text" /></a>
 	   		</div>
 	   	</div>
    	</div>

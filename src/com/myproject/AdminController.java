@@ -15,6 +15,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -36,6 +37,7 @@ import com.myproject.bean.TimeTable;
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController {
+	final static Logger logger = Logger.getLogger(AdminController.class);
 	@Autowired
 	ServletContext servletContext;
 	@Autowired
@@ -45,7 +47,7 @@ public class AdminController {
 	
 	@RequestMapping(value="student")
 	public String start(Model model){
-		System.out.println("Application started");
+		logger.debug("Application started");
 		List<StudentInfo> studentList = homeDao.getAllStudentLists();
 		model.addAttribute("studentList",studentList);
         return "start";
@@ -77,8 +79,8 @@ public class AdminController {
 	@RequestMapping(value="downloadTimeTable")
 	public String timeTablecls(Model model){
 		String path = getImageFolder();
-		System.out.println(path);
-		System.out.println("Application started");
+		logger.debug(path);
+		logger.debug("Application started");
 		List<TimeTable> classList = homeDao.getAllClassLists();
 		model.addAttribute("classList",classList);
         return "timetableDownload";
@@ -128,7 +130,7 @@ public class AdminController {
 		String classname = request.getParameter("classname");
 		String password = request.getParameter("password");
 		String confirmpassword = request.getParameter("confirmpassword");
-		System.out.println("Application started");
+		logger.debug("Application started");
 		model.addAttribute("email",email);
 		model.addAttribute("name",name);
 		model.addAttribute("fathername",fathername);
@@ -228,7 +230,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "uploadFile", method = RequestMethod.POST)
 	public String uploadFileHandler1(@RequestParam("file") MultipartFile file,Model model, HttpServletRequest request) {
-		System.out.println("Already uploaded!");
+		logger.debug("Already uploaded!");
 		String orgFileName = file.getOriginalFilename();
 		String folder = getImageFolder();
 		if (!file.isEmpty()) {
@@ -254,7 +256,7 @@ public class AdminController {
 	}
 	@RequestMapping(value = "uploadSectionMaterial", method = RequestMethod.POST)
 	public String uploadMaterialHandler(@RequestParam("filename") MultipartFile file,Model model, HttpServletRequest request) {
-		System.out.println("Already uploaded!");
+		logger.debug("Already uploaded!");
 		String orgFileName = file.getOriginalFilename();
 
 		String folder ="d:/lms-images/";
@@ -330,9 +332,9 @@ public class AdminController {
 		    	Cell cell1 = row.getCell(1);
 		    	//2 mark
 		    	Cell cell2 = row.getCell(2);
-			    System.out.println(cell.getStringCellValue());
-			    System.out.println(cell1.getStringCellValue());
-			    System.out.println(cell2.getStringCellValue());
+		    	logger.debug(cell.getStringCellValue());
+		    	logger.debug(cell1.getStringCellValue());
+		    	logger.debug(cell2.getStringCellValue());
 			    val =cell.getStringCellValue();
 			    val1 =cell1.getStringCellValue();
 			    val2 =cell2.getStringCellValue();
